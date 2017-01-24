@@ -11,7 +11,7 @@ ENV ES_HOME=/usr/share/elasticsearch-rtf \
 
 RUN apk -U add bash git && \
     cd /usr/share && \
-    git clone git://github.com/medcl/elasticsearch-rtf.git -b 5.0.0 --depth 1 && \
+    git clone git://github.com/medcl/elasticsearch-rtf.git -b master --depth 1 && \
     adduser -S -s /bin/sh $DEFAULT_ES_USER && \
     apk del git && \
     rm -rf /var/cache/apk/*
