@@ -1,4 +1,4 @@
-FROM killtw/elasticsearch-rtf:5.0.0
+FROM killtw/elasticsearch-rtf:5.1.1
 
 MAINTAINER Karl Li <killtw@gmail.com>
 
