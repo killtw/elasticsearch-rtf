@@ -106,16 +106,20 @@ OPTS="$OPTS \
   -E path.data=/data \
   -E path.logs=/data \
   -E transport.tcp.port=9300 \
-  -E http.port=9200"
+  -E http.host=127.0.0.1 \
+  -E http.port=9201"
 
 discoverIpFromLink $DISCOVER_TRANSPORT_IP transport
-discoverIpFromLink $DISCOVER_HTTP_IP http
 
 setup_personality
 setup_clustering
 install_plugins
 
 mkdir -p /conf/scripts
+
+echo "Starting nginx with password"
+htpasswd -cb /etc/nginx/passwd/elasticsearch.passwd $ES_USER $ES_PASS
+nginx
 
 echo "Starting Elasticsearch with the options $OPTS"
 CMD="$ES_HOME/bin/elasticsearch $OPTS"

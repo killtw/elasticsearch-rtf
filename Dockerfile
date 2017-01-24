@@ -1,19 +1,15 @@
-FROM java:8u92-jre-alpine
+FROM killtw/elasticsearch-rtf:5.0.0
 
 MAINTAINER Karl Li <killtw@gmail.com>
 
-ENV ES_HOME=/usr/share/elasticsearch-rtf \
-    DEFAULT_ES_USER=elasticsearch \
-    DISCOVER_TRANSPORT_IP=eth0 \
-    DISCOVER_HTTP_IP=eth0 \
-    ES_JAVA_OPTS="-Xms2024m -Xmx2024m" \
-    PATH=/usr/share/elasticsearch-rtf/bin:$PATH
+ENV ES_USER=elastic \
+    ES_PASS=password
 
-RUN apk -U add bash git && \
-    cd /usr/share && \
-    git clone git://github.com/medcl/elasticsearch-rtf.git -b 5.0.0 --depth 1 && \
-    adduser -S -s /bin/sh $DEFAULT_ES_USER && \
-    apk del git && \
+ADD nginx.conf /etc/nginx/nginx.conf
+
+RUN apk -U add nginx apache2-utils && \
+    chown -R nginx:www-data /var/lib/nginx && \
+    mkdir -p /etc/nginx/passwd && \
     rm -rf /var/cache/apk/*
 
 EXPOSE 9200 9300
