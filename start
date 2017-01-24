@@ -98,11 +98,7 @@ if [ -f /conf/env ]; then
 fi
 
 if [ ! -e /conf/elasticsearch.* ]; then
-  cp $ES_HOME/config/elasticsearch.yml /conf
-fi
-
-if [ ! -e /conf/log4j2.properties ]; then
-  cp $ES_HOME/config/log4j2.properties /conf
+  cp -R $ES_HOME/config/* /conf
 fi
 
 OPTS="$OPTS \
